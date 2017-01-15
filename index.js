@@ -2,7 +2,7 @@
 
 var port = process.env.PORT || 3000;
 
-var app = require('express').createServer()
+var app = require('express')();
 var io = require('socket.io').listen(app);
 
 app.listen(port);
