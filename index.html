@@ -19,7 +19,34 @@
     <form action="">
       <input id="m" autocomplete="off" /><button>Send</button>
     </form>
-    <script src="main.js"></script>
+    <script>
+      'use strict';
+
+      navigator.getUserMedia = navigator.getUserMedia ||
+          navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+
+      var constraints = {
+        audio: false,
+        video: true
+      };
+      var video = document.querySelector('video');
+
+      function successCallback(stream) {
+        window.stream = stream; // stream available to console
+        if (window.URL) {
+          video.src = window.URL.createObjectURL(stream);
+        } else {
+          video.src = stream;
+        }
+      }
+
+      function errorCallback(error) {
+        console.log('navigator.getUserMedia error: ', error);
+      }
+
+      navigator.getUserMedia(constraints, successCallback, errorCallback);
+
+    </script>
     <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
     <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
     <script>
